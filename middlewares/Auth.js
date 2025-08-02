@@ -10,7 +10,7 @@ export const isAuthenticated = async (req, res, next) => {
   // console.log("check token", token);
 
   if (!token) {
-    res.json({ message: "Login First" });
+    return res.status(401).json({ message: "Login First" });
   }
 
   const decoded = jwt.verify(token, process.env.JWT);
@@ -19,7 +19,7 @@ export const isAuthenticated = async (req, res, next) => {
   let user = await User.findById(id);
 
   if (!user) {
-    return res.json({ message: "User Not Found" });
+    return res.status(404).json({ message: "User Not Found" });
   }
 
   req.user = user; // variable next to req.__ is flexible.
