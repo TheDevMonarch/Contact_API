@@ -4,10 +4,10 @@ import { Contact } from "../Models/Contact.js";
 export const getAllContact = async (req, res) => {
   const userContact = await Contact.find();
   if (!userContact) {
-    return res.json({ message: "No Contact Exist", success: false });
+    return res.status(403).json({ message: "No Contact Exist", success: false });
   }
 
-  res.json({ message: "All contact fetched", userContact });
+ return res.status(200).json({ message: "All contact fetched", userContact });
 };
 
 //Create new contact
@@ -15,7 +15,7 @@ export const newContact = async (req, res) => {
   const { name, email, phone, type } = req.body;
 
   if (name === "" || email === "" || phone === "" || type === "") {
-    return res.json("all fields are required");
+    return res.status(400).json("all fields are required");
   }
 
   let saveContact = await Contact.create({
@@ -26,7 +26,7 @@ export const newContact = async (req, res) => {
     user:req.user
   });
 
-  res.json({ message: "Contact saved successfully", success: true });
+  res.status(201).json({ message: "Contact saved successfully", success: true });
 };
 
 //Update Contact
@@ -45,10 +45,10 @@ export const updateContact = async (req, res) => {
   );
 
   if (!updatedContact) {
-    res.json({ message: "No contact exist", success: false });
+    res.status(404).json({ message: "No contact exist", success: false });
   }
 
-  res.json({
+  res.status(201).json({
     message: "contact updated successfully...!",
     updatedContact,
     success: true,
@@ -61,10 +61,10 @@ export const getContactById = async (req, res) => {
 
   const userContact = await Contact.findById(id);
   if (!userContact) {
-    return res.json({ message: "No Contact find", success: false });
+    return res.status(404).json({ message: "No Contact find", success: false });
   }
 
-  res.json({ message: "Contact Fetched", userContact, success: true });
+  res.status(200).json({ message: "Contact Fetched", userContact, success: true });
 };
 
 //delete contact by id
@@ -73,10 +73,10 @@ export const deleteContactById = async (req, res) => {
   const deleteContact = await Contact.findByIdAndDelete(id);
 
   if (!deleteContact) {
-    res.json({ message: "No contact exist", success: false });
+    res.status(404).json({ message: "No contact exist", success: false });
   }
 
-  res.json({
+  res.status(200).json({
     message: "contact deleted successfully...!",
     success: true,
   });
@@ -88,8 +88,8 @@ export const getContactByUserId = async (req, res) => {
 
   const userContact = await Contact.find({user:id});
   if (!userContact) {
-    return res.json({ message: "No Contact find", success: false });
+    return res.status(404).json({ message: "No Contact find", success: false });
   }
 
-  res.json({ message: "User Specific Contact Fetched", userContact, success: true });
+  res.status(200).json({ message: "User Specific Contact Fetched", userContact, success: true });
 };
