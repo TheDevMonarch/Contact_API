@@ -77,7 +77,7 @@ Auth: <your_jwt_token>
 Create a `.env` file at the root of your project with:
 
 ```env
-PORT=5000
+PORT=port_no
 MONGO_URI=your_mongodb_connection_string
 JWT=your_jwt_secret_key
 ```
