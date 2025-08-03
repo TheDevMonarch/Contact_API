@@ -89,8 +89,8 @@ JWT=your_jwt_secret_key
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/contact-api.git
-cd contact-api
+git clone https://github.com/TheDevMonarch/Contact_API.git
+cd Contact_API
 ```
 
 ### 2. Install Dependencies
